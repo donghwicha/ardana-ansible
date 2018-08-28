@@ -75,7 +75,16 @@
   become: yes
   copy:
     src: "{{ output_tar }}"
-    dest: "{{ PACKAGE_CONSTANTS.REPO_DIR }}/{{ ardana_version }}/{{ venv_locs[item] }}/"
+    dest: "{{ PACKAGE_CONSTANTS.REPO_DIR }}/{{ ardana_version }}/{{ venv_locs[item] }}/x86_64"
+  with_items: "{{ distro_list }}"
+  when: item != 'redhat' or (third_party_rhel_enabled | default(false) | bool)
+
+- name: thirdparty-other | create-thirdparty-other | Add Softlink to tarball
+  become: yes
+  file:
+    src: "{{ PACKAGE_CONSTANTS.REPO_DIR }}/{{ ardana_version }}/{{ venv_locs[item] }}/x86_64/{{ content_name }}-{{ version }}.tgz"
+    dest: "{{ PACKAGE_CONSTANTS.REPO_DIR }}/{{ ardana_version }}/{{ venv_locs[item] }}/{{ content_name }}-{{ version }}.tgz"
+    state: link
   with_items: "{{ distro_list }}"
   when: item != 'redhat' or (third_party_rhel_enabled | default(false) | bool)
 
