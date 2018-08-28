@@ -50,16 +50,17 @@ venv_locs:
 distro_list: "{{ hostvars['localhost']['distro_list'] }}"
 
 pkg_locs:
-  debian: "{{ PACKAGE_CONSTANTS.REPO_DIR~'/'~ardana_version~'/'~package_venv_locations.hlinux[ansible_architecture] }}"
-  redhat:  "{{ PACKAGE_CONSTANTS.REPO_DIR~'/'~ardana_version~'/'~package_venv_locations.rhel[ansible_architecture] }}"
-  suse:  "{{ PACKAGE_CONSTANTS.REPO_DIR~'/'~ardana_version~'/'~package_venv_locations.sles[ansible_architecture] }}"
+  debian: "{{ PACKAGE_CONSTANTS.REPO_DIR ~ '/' ~ ardana_version ~ '/' ~ package_venv_locations.hlinux[ansible_architecture] }}"
+  redhat:  "{{ PACKAGE_CONSTANTS.REPO_DIR ~ '/' ~ ardana_version ~ '/' ~ package_venv_locations.rhel[ansible_architecture] }}"
+  suse:  "{{ PACKAGE_CONSTANTS.REPO_DIR ~ '/' ~ ardana_version ~ '/' ~ package_venv_locations.sles[ansible_architecture] }}"
 
 pkg_manifests:
   debian: "{{ (pkg_locs.debian + '/packages') | load_packages() }}"
   redhat: "{{ (pkg_locs.redhat + '/packages') | load_packages() }}"
   suse: "{{ (pkg_locs.suse + '/packages') | load_packages() }}"
 
-base_manifests:
-  debian: "{{ (pkg_locs.debian + '/base_packages') | load_packages() }}"
-  redhat: "{{ (pkg_locs.redhat + '/base_packages') | load_packages() }}"
-  suse: "{{ (pkg_locs.suse + '/base_packages') | load_packages() }}"
+# not used anymore 
+#base_manifests:
+#  debian: "{{ (pkg_locs.debian + '/base_packages') | load_packages() }}"
+#  redhat: "{{ (pkg_locs.redhat + '/base_packages') | load_packages() }}"
+#  suse: "{{ (pkg_locs.suse + '/base_packages') | load_packages() }}"
