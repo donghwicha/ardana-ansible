@@ -21,7 +21,7 @@
       Error: Ardana OpenStack service with name '{{ content_name }}' already exists.
       Please use a different name.
   when: >
-    '{{ base_manifests[item] | package_max_version(content_name) }}' != ''
+    '{{ pkg_manifests[item] | package_max_version(content_name) }}' != ''
   with_items: "{{ distro_list }}"
 
 - name: thirdparty-other | create-thirdparty-other | Get lsb_release details
